@@ -1,0 +1,16 @@
+#!/bin/sh
+
+case $1 in
+    deconfig)
+        ip link set $interface up
+        ;;
+
+    renew|bound)
+        ip link set $interface up
+        ip addr add $ip/$mask dev $interface
+        
+        ip route add default via $router dev $interface
+
+        echo "nameserver $dns" > /etc/resolv.conf
+        ;;
+esac
