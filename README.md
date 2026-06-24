@@ -220,16 +220,7 @@ The result is a fully functional Debian installation created from a minimal boot
 
 ## TODO
 
-* [ ] Add unit tests using the Bats framework.
-* [ ] Add a Docker-based reproducible build environment.
-* [ ] Add CI/CD pipelines.
-* [ ] Publish ISO images automatically through GitHub Releases.
-* [ ] Create a rescue image.
-* [ ] Add partition recovery utilities.
-* [ ] Add filesystem repair tools.
-* [ ] Add GRUB recovery tools.
-* [ ] Add disk recovery utilities.
-* [ ] Support additional recovery and maintenance workflows.
+You can see [issue tracker](https://github.com/alirezaarzehgar/kisso/issues) for TODO tasks.
 
 ## Contributing
 
