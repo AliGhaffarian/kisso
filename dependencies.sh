@@ -1,12 +1,12 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-BUSYBOX_URL="https://www.busybox.net/downloads/binaries/1.31.0-defconfig-multiarch-musl/busybox-x86_64"
-CURL_URL="https://github.com/moparisthebest/static-curl/releases/latest/download/curl-amd64"
-KERNEL_DEB_URL="https://deb.debian.org/debian/pool/main/l/linux-signed-amd64/linux-image-6.1.0-42-amd64_6.1.159-1_amd64.deb"
-KEYRINGS_DEB_URL="https://deb.debian.org/debian/pool/main/d/debian-archive-keyring/debian-archive-keyring_2025.1_all.deb"
-CDEBOOTSTRAP_STATIC_DEB_URL="https://ftp.debian.org/debian/pool/main/c/cdebootstrap/cdebootstrap-static_0.7.8+b38_amd64.deb"
-CERTIFICATE_DEB_URL="https://ftp.debian.org/debian/pool/main/c/ca-certificates/ca-certificates_20260601_all.deb"
-GPGV_DEB_URL="https://ftp.debian.org/debian/pool/main/g/gnupg2/gpgv-static_2.4.7-21+deb13u1+b4_amd64.deb"
+BUSYBOX_URL=${BUSYBOX_URL:-"https://www.busybox.net/downloads/binaries/1.31.0-defconfig-multiarch-musl/busybox-x86_64"}
+CURL_URL=${CURL_URL:-"https://github.com/moparisthebest/static-curl/releases/latest/download/curl-amd64"}
+KERNEL_DEB_URL=${KERNEL_DEB_URL:-"https://deb.debian.org/debian/pool/main/l/linux-signed-amd64/linux-image-6.1.0-42-amd64_6.1.159-1_amd64.deb"}
+KEYRINGS_DEB_URL=${KEYRINGS_DEB_URL:-"https://deb.debian.org/debian/pool/main/d/debian-archive-keyring/debian-archive-keyring_2025.1_all.deb"}
+CDEBOOTSTRAP_STATIC_DEB_URL=${CDEBOOTSTRAP_STATIC_DEB_URL:-"https://ftp.debian.org/debian/pool/main/c/cdebootstrap/cdebootstrap-static_0.7.8+b38_amd64.deb"}
+CERTIFICATE_DEB_URL=${CERTIFICATE_DEB_URL:-"https://ftp.debian.org/debian/pool/main/c/ca-certificates/ca-certificates_20260601_all.deb"}
+GPGV_DEB_URL=${GPGV_DEB_URL:-"https://ftp.debian.org/debian/pool/main/g/gnupg2/gpgv-static_2.4.7-21+deb13u1+b4_amd64.deb"}
 
 function install_busybox() {
     mkdir -p bin
