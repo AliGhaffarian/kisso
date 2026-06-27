@@ -8,14 +8,14 @@ CDEBOOTSTRAP_STATIC_DEB_URL=${CDEBOOTSTRAP_STATIC_DEB_URL:-"https://ftp.debian.o
 CERTIFICATE_DEB_URL=${CERTIFICATE_DEB_URL:-"https://ftp.debian.org/debian/pool/main/c/ca-certificates/ca-certificates_20260601_all.deb"}
 GPGV_DEB_URL=${GPGV_DEB_URL:-"https://ftp.debian.org/debian/pool/main/g/gnupg2/gpgv-static_2.4.7-21+deb13u1+b4_amd64.deb"}
 
-function install_busybox() {
+install_busybox() {
     mkdir -p bin
 
     wget ${BUSYBOX_URL} --no-clobber -O ${BINARIES_DIST}/busybox
     install -m 755 ${BINARIES_DIST}/busybox bin
 }
 
-function install_kernel_modules() {
+install_kernel_modules() {
     mkdir -p lib
     TARGET=$(pwd)
 
@@ -35,7 +35,7 @@ function install_kernel_modules() {
     rm -rf linux-image
 }
 
-function install_kernel() {
+install_kernel() {
     TARGET=$(pwd)
 
     wget ${KERNEL_DEB_URL} --no-clobber -O ${BINARIES_DIST}/linux-image.deb
@@ -51,14 +51,14 @@ function install_kernel() {
     rm -rf linux-image
 }
 
-function install_curl() {
+install_curl() {
     mkdir -p bin
 
     wget ${CURL_URL} --no-clobber -O ${BINARIES_DIST}/curl
     install -m 755 ${BINARIES_DIST}/curl bin
 }
 
-function install_gpgv() {
+install_gpgv() {
     mkdir -p bin
     TARGET=$(pwd)
 
@@ -74,7 +74,7 @@ function install_gpgv() {
     rm -rf gpgv
 }
 
-function install_ca_certificates() {
+install_ca_certificates() {
     mkdir -p etc/ssl/certs
     TARGET=$(pwd)
 
@@ -90,7 +90,7 @@ function install_ca_certificates() {
     rm -rf certs
 }
 
-function install_keyrings() {
+install_keyrings() {
     wget ${KEYRINGS_DEB_URL} --no-clobber -O ${BINARIES_DIST}/debian-archive-keyring.deb
     mkdir -p keyring
     cd keyring
@@ -103,7 +103,7 @@ function install_keyrings() {
     rm -rf keyring
 }
 
-function install_debootstrap() {
+install_debootstrap() {
     wget ${CDEBOOTSTRAP_STATIC_DEB_URL} --no-clobber -O ${BINARIES_DIST}/cdebootstrap-static.deb
     mkdir -p cdebootstrap-static
     cd cdebootstrap-static
@@ -120,7 +120,7 @@ function install_debootstrap() {
 # install_initramfs initramfs_dir rootfs_dir
 # 
 # archive initramfs path and build initrd, save to ${ROOTFS_DIR}/boot/initramfs
-function install_initramfs() {
+install_initramfs() {
     INITRD_DIR=$1
     ROOTFS_DIR=$2
 
