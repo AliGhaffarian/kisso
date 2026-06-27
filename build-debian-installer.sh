@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-. dependencies.sh
+. ./dependencies.sh
 
 BINARIES_DIST=$(pwd)/bins
 ROOTFS_DIST=$(pwd)/build/rootfs
