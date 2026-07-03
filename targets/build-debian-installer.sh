@@ -1,14 +1,8 @@
 #!/usr/bin/env sh
 
-. ./dependencies.sh
+. ./lib/setup.sh
 
-BINARIES_DIST=$(pwd)/bins
-ROOTFS_DIST=$(pwd)/build/rootfs
-INITRD_DIST=$(pwd)/build/initrd
-BUILD_DIR=$(pwd)/build
-
-mkdir -p ${BUILD_DIR} ${BINARIES_DIST}
-cp -r initrd rootfs ${BUILD_DIR}
+create_build_dir
 
 cd $BUILD_DIR/initrd
 install_busybox
