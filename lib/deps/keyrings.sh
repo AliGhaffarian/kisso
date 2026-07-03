@@ -4,13 +4,13 @@ KEYRINGS_DEB_URL=${KEYRINGS_DEB_URL:-"https://deb.debian.org/debian/pool/main/d/
 
 install_keyrings() {
 	wget "$KEYRINGS_DEB_URL" --no-clobber -O "$BINARIES_DIST"/debian-archive-keyring.deb
-	mkdir -p keyring
-	cd keyring || exit
+	tmp=$(mktemp -d keyring.XXXX)
+	cd "${tmp}" || exit
 	ar x "$BINARIES_DIST"/debian-archive-keyring.deb
 	tar xf data.tar.xz
 
 	cp --parents -r usr/ ../
 
 	cd ..
-	rm -rf keyring
+	rm -rf "${tmp}"
 }

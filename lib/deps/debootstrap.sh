@@ -4,8 +4,8 @@ CDEBOOTSTRAP_STATIC_DEB_URL=${CDEBOOTSTRAP_STATIC_DEB_URL:-"https://ftp.debian.o
 
 install_debootstrap() {
 	wget "$CDEBOOTSTRAP_STATIC_DEB_URL" --no-clobber -O "$BINARIES_DIST"/cdebootstrap-static.deb
-	mkdir -p cdebootstrap-static
-	cd cdebootstrap-static || exit
+	tmp=$(mktemp -d debootstrap.XXXX)
+	cd "${tmp}" || exit
 	ar x "$BINARIES_DIST"/cdebootstrap-static.deb
 	tar xf data.tar.xz
 
@@ -13,5 +13,5 @@ install_debootstrap() {
 
 	cd ..
 	mv usr/bin/cdebootstrap-static usr/bin/cdebootstrap
-	rm -rf cdebootstrap-static
+	rm -rf "${tmp}"
 }

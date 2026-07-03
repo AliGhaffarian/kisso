@@ -8,8 +8,8 @@ install_kernel_modules() {
 
 	wget "${KERNEL_DEB_URL}" --no-clobber -O "${BINARIES_DIST}"/linux-image.deb
 
-	mkdir -p linux-image
-	cd linux-image || exit
+	tmp=$(mktemp -d kernel.XXXX)
+	cd "${tmp}" || exit
 	ar x "${BINARIES_DIST}"/linux-image.deb
 	tar xf data.tar.xz
 
@@ -21,7 +21,7 @@ install_kernel_modules() {
 	done
 
 	cd ..
-	rm -rf linux-image
+	rm -rf "${tmp}"
 }
 
 install_kernel() {
@@ -29,13 +29,13 @@ install_kernel() {
 
 	wget "${KERNEL_DEB_URL}" --no-clobber -O "${BINARIES_DIST}"/linux-image.deb
 
-	mkdir -p linux-image
-	cd linux-image || exit
+	tmp=$(mktemp -d kernel.XXXX)
+	cd "${tmp}" || exit
 	ar x "${BINARIES_DIST}"/linux-image.deb
 	tar xf data.tar.xz
 
 	cp boot/vmlinuz-6.1.0-42-amd64 "${TARGET}"/boot/vmlinuz
 
 	cd ..
-	rm -rf linux-image
+	rm -rf "${tmp}"
 }

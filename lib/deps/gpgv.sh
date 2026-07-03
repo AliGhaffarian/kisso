@@ -7,13 +7,13 @@ install_gpgv() {
 	TARGET=$PWD
 
 	wget "$GPGV_DEB_URL" --no-clobber -O "$BINARIES_DIST"/gpgv.deb
-	mkdir -p gpgv
-	cd gpgv || exit
+	tmp=$(mktemp -d gpgv.XXXX)
+	cd "${tmp}" || exit
 	ar x "$BINARIES_DIST"/gpgv.deb
 	tar xf data.tar.xz
 
 	cp usr/bin/gpgv-static "$TARGET"/bin/gpgv
 
 	cd ..
-	rm -rf gpgv
+	rm -rf "${tmp}"
 }

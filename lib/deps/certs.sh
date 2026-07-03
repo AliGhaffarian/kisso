@@ -7,13 +7,13 @@ install_ca_certificates() {
 	TARGET=$PWD
 
 	wget "$CERTIFICATE_DEB_URL" --no-clobber -O "$BINARIES_DIST"/certificates.deb
-	mkdir -p certs
-	cd certs || exit
+	tmp=$(mktemp -d certs.XXXX)
+	cd "${tmp}" || exit
 	ar x "$BINARIES_DIST"/certificates.deb
 	tar xf data.tar.xz
 
 	cat usr/share/ca-certificates/mozilla/*.crt >"$TARGET"/etc/ssl/certs/ca-certificates.crt
 
 	cd ..
-	rm -rf certs
+	rm -rf "${tmp}"
 }
