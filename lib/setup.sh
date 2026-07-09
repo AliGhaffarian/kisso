@@ -6,18 +6,15 @@ export BUILD_DIR="${PWD}"/build
 export ROOTFS_DIST="${BUILD_DIR}"/rootfs
 export INITRD_DIST="${BUILD_DIR}"/initrd
 
-# Source all dependency modules.
-#
-# SC1090 is disabled because the sourced files are discovered dynamically
-# via glob expansion. ShellCheck performs static analysis and cannot resolve
-# the value of "$dep" at lint time, even though it is guaranteed to be one of
-# the existing files matching ./lib/deps/*.sh at runtime.
-#
-# shellcheck disable=SC1090
-for dep in ./lib/deps/*.sh; do
-    [ -e "$dep" ] || continue
-    . "$dep"
-done
+. ./lib/deps/busybox.sh
+. ./lib/deps/certs.sh
+. ./lib/deps/curl.sh
+. ./lib/deps/debootstrap.sh
+. ./lib/deps/glibc.sh
+. ./lib/deps/gpgv.sh
+. ./lib/deps/initrd.sh
+. ./lib/deps/kernel.sh
+. ./lib/deps/keyrings.sh
 
 # Create build directory in currect dir and copy initrd/rootfs template
 # for new build.

@@ -1,0 +1,6 @@
+{
+    "shellcheck.customArgs": [
+        "--external-sources",
+        "--source-path=${workspaceFolder}"
+    ]
+}
