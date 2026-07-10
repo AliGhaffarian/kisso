@@ -2,14 +2,15 @@
 
 /bin/busybox --install -s /bin
 
-mkdir -p dev proc sys tmp
+mkdir -p dev proc sys tmp mnt bin
 mount -t devtmpfs  devtmpfs  /dev
 mount -t proc      proc      /proc
 mount -t sysfs     sysfs     /sys
 mount -t tmpfs     tmpfs     /tmp
 
-for mod in $(cat usr/share/kernel-modules.lst); do
-    modprobe $mod
+modules=$(cat "usr/share/kernel-modules.lst")
+for mod in $modules; do
+    modprobe "$mod"
 done
 
 udhcpc -v

@@ -2,17 +2,32 @@
 
 GPGV_DEB_URL=${GPGV_DEB_URL:-"https://ftp.debian.org/debian/pool/main/g/gnupg2/gpgv-static_2.4.7-21+deb13u1+b4_amd64.deb"}
 
+# install_gpgv [dest_dir] [bin_cache_dir]
+#
+# install gpgv binary on specified directpry.
+# Download and cache kernel binary on bin_cache_dir
+# path for later runs of script.
+#
+# args:
+# - dest_dir (default=current dir): target direcory to install gpgv
+# - bin_cache_dir (default=$BINARIES_DIST): download and cache binaries
+#
+# envs:
+# - GPGV_DEB_URL: gpgv binary will extracted form this debian package
+# - BINARIES_DIST: default path for caching downloaded binaries
 install_gpgv() {
-	mkdir -p bin
-	TARGET=$PWD
+	dest_dir=${1:-$PWD}
+	bin_cache_dir=${2:-$BINARIES_DIST}
 
-	wget "$GPGV_DEB_URL" --no-clobber -O "$BINARIES_DIST"/gpgv.deb
+	mkdir -p bin
+
+	wget "$GPGV_DEB_URL" --no-clobber -O "$bin_cache_dir"/gpgv.deb
 	tmp=$(mktemp -d gpgv.XXXX)
 	cd "${tmp}" || exit
-	ar x "$BINARIES_DIST"/gpgv.deb
+	ar x "$bin_cache_dir"/gpgv.deb
 	tar xf data.tar.xz
 
-	cp usr/bin/gpgv-static "$TARGET"/bin/gpgv
+	cp usr/bin/gpgv-static "$dest_dir"/bin/gpgv
 
 	cd ..
 	rm -rf "${tmp}"
