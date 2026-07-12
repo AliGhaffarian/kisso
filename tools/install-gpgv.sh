@@ -32,3 +32,5 @@ install_gpgv() {
 	cd ..
 	rm -rf "${tmp}"
 }
+
+install_gpgv "$@"

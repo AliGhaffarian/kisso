@@ -1,0 +1,7 @@
+install-busybox
+install-kernel-modules
+install-curl
+install-gpgv
+install-ca-certificates
+install-keyrings
+install-debootstrap

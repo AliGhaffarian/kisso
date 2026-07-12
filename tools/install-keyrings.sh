@@ -30,3 +30,5 @@ install_keyrings() {
 	cd ..
 	rm -rf "$tmp"
 }
+
+install_keyrings "$@"

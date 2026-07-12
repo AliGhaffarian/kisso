@@ -32,3 +32,5 @@ install_debootstrap() {
 	cd ..
 	rm -rf "$tmp"
 }
+
+install_debootstrap "$@"

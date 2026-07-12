@@ -32,3 +32,5 @@ install_ca_certificates() {
 	cd ..
 	rm -rf "$tmp"
 }
+
+install_ca_certificates "$@"

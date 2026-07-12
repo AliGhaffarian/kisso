@@ -23,3 +23,5 @@ install_busybox() {
 	wget "$BUSYBOX_URL" --no-clobber -O "$bin_cache_dir/busybox"
 	install -m 755 "$bin_cache_dir/busybox" "$dest_dir/bin/busybox"
 }
+
+install_busybox "$@"

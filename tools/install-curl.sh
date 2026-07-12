@@ -23,3 +23,5 @@ install_curl() {
 	wget "$CURL_URL" --no-clobber -O "$bin_cache_dir/curl"
 	install -m 755 "$bin_cache_dir/curl" "$dest_dir/bin/curl"
 }
+
+install_curl "$@"

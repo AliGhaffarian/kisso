@@ -15,3 +15,5 @@ install_initramfs() {
 	find . | cpio -ov --format=newc | gzip -9 >"$rootfs_dir"/boot/initramfs
 	cd - || exit
 }
+
+install_initramfs "$@"

@@ -32,3 +32,5 @@ install_glibc() {
 	cd ..
 	rm -rf "${tmp}"
 }
+
+install_glibc "$@"
