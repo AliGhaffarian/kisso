@@ -1,0 +1,84 @@
+#!/usr/bin/expect -f
+
+set timeout 1800
+
+set disk           [lindex $argv 0]
+set iso            [lindex $argv 1]
+set debian_mirror  [lindex $argv 2]
+
+spawn qemu-system-x86_64 \
+  -enable-kvm \
+  -cpu host \
+  -m 4G \
+  -smp 2 \
+  -boot d \
+  -drive file=$disk,if=virtio,aio=threads,cache=writeback \
+  -cdrom $iso \
+  -netdev user,id=net0 \
+  -device virtio-net-pci,netdev=net0 \
+  -nographic \
+  -serial mon:stdio
+
+expect timeout { exit 1 } "/ #"
+
+send "fdisk /dev/vda
+n
+p
+1
+
+
+w
+"
+
+send "mkfs.ext2 /dev/vda1\n"
+send "mount /dev/vda1 /mnt\n"
+
+send "cdebootstrap \
+  --flavour=minimal \
+  --include=systemd-sysv,udev,linux-image-amd64,initramfs-tools,grub-pc-bin,grub2-common,grub-common \
+  bookworm /mnt $debian_mirror\n"
+
+expect timeout { exit 1 } "/ #"
+
+send "cp -a /etc/ssl /mnt/etc/\n"
+send "mount --bind /dev /mnt/dev\n"
+send "mount --bind /proc /mnt/proc\n"
+send "mount --bind /sys /mnt/sys\n"
+
+send "chroot /mnt\n"
+
+expect timeout { exit 1 } -re "root@.*:/#\\s*"
+send "echo debian >/etc/hostname\n"
+send "cat >/etc/fstab <<'FSTAB'
+/dev/vda1 / ext2 defaults 0 1
+FSTAB
+"
+send "echo virtio >> /etc/initramfs-tools/modules\n"
+send "echo virtio_pci >> /etc/initramfs-tools/modules\n"
+send "echo virtio_blk >> /etc/initramfs-tools/modules\n"
+send "passwd\n"
+expect timeout { exit 1 } "New password:"
+send "admin\n"
+expect timeout { exit 1 } "Retype new password:"
+send "admin\n"
+
+expect timeout { exit 1 } -re "root@.*:/#\\s*"
+send "update-initramfs -c -k all\n"
+
+expect timeout { exit 1 } -re "root@.*:/#\\s*"
+send "grub-install /dev/vda\n"
+
+expect timeout { exit 1 } -re "root@.*:/#\\s*"
+send "grub-mkconfig -o /boot/grub/grub.cfg\n"
+
+expect timeout { exit 1 } -re "root@.*:/#\\s*"
+send "update-grub\n"
+
+expect timeout { exit 1 } -re "root@.*:/#\\s*"
+send "
+exit
+umount -a
+exit
+"
+
+expect eof
