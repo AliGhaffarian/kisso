@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-KERNEL_DEB_URL=${KERNEL_DEB_URL:-"https://deb.debian.org/debian/pool/main/l/linux-signed-amd64/linux-image-6.1.0-42-amd64_6.1.159-1_amd64.deb"}
+KERNEL_DEB_URL=${KERNEL_DEB_URL:-"https://deb.debian.org/debian/pool/main/l/linux-signed-amd64/linux-image-6.1.0-47-amd64_6.1.170-3_amd64.deb"}
 
 # install_kernel_modules <dest_dir> [bin_cache_dir]
 #
@@ -37,10 +37,10 @@ install_kernel_modules() {
 	ar x "${bin_cache_dir}/linux-image.deb"
 	tar xf data.tar.xz
 
-	kmod_dir="${dest_dir}/lib/modules/6.1.0-42-amd64"
+	kmod_dir="${dest_dir}/lib/modules/*-amd64"
 	mkdir -p "$kmod_dir"
 
-	cp -a lib/modules/6.1.0-42-amd64/modules.* "$kmod_dir/"
+	cp -a lib/modules/*-amd64/modules.* "$kmod_dir/"
 
 	modules=$(cat "${dest_dir}/usr/share/kernel-modules.lst")
 

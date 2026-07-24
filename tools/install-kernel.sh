@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-KERNEL_DEB_URL=${KERNEL_DEB_URL:-"https://deb.debian.org/debian/pool/main/l/linux-signed-amd64/linux-image-6.1.0-42-amd64_6.1.159-1_amd64.deb"}
+KERNEL_DEB_URL=${KERNEL_DEB_URL:-"https://deb.debian.org/debian/pool/main/l/linux-signed-amd64/linux-image-6.1.0-47-amd64_6.1.170-3_amd64.deb"}
 
 # install_kernel [dest_dir] [bin_cache_dir]
 #
@@ -33,7 +33,7 @@ install_kernel() {
 	ar x "${bin_cache_dir}/linux-image.deb"
 	tar xf data.tar.xz
 
-	cp boot/vmlinuz-6.1.0-42-amd64 "${dest_dir}/boot/vmlinuz"
+	cp boot/vmlinuz-*-amd64 "${dest_dir}/boot/vmlinuz"
 
 	cd ..
 	rm -rf "${tmp}"
