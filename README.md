@@ -225,6 +225,10 @@ QEMU with `expect` (`vm/install-debian.exp`) to partition the disk, run
 The Debian mirror is configurable via `DEBIAN_MIRROR`. The flow is interactive
 (scripted through `expect`) and sets the installed root password to `admin`.
 
+To install Debian onto a disk by hand with a prebuilt `debian-installer.iso` —
+rather than the scripted VM demo — follow the
+[Debian installation guide](docs/debian-installer.md).
+
 ## Roadmap / Contributing
 
 The goal of kisso is to grow a library of targets for real-world uses — storage
